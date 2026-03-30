@@ -515,6 +515,13 @@
                 </div>`;
             }
 
+            let imageHTML = '';
+            if (q.image) {
+                imageHTML = `<div style="text-align: center; margin-bottom: 20px;">
+                    <img src="${q.image}" alt="Question Image" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                </div>`;
+            }
+
             display.innerHTML = `
                 <div class="question-header">
                     <div>
@@ -523,6 +530,7 @@
                     </div>
                     <span class="q-counter">${currentIndex + 1} / ${filtered.length}</span>
                 </div>
+                ${imageHTML}
                 <p class="question-text">${q.question}</p>
                 <div class="options">${optionsHTML}</div>
                 ${answerBlockHTML}

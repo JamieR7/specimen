@@ -171,14 +171,23 @@ const mcQuestions = [
         explanation: "Newton's Second Law (the Law of Acceleration) states that the acceleration of an object is directly proportional to the net force applied to it and inversely proportional to its mass: F = ma. In sport this means a heavier athlete requires more force to accelerate at the same rate as a lighter athlete, and a greater muscular force produces a greater acceleration. Option A is Newton's Third Law. Option B is Newton's First Law (inertia). Angular momentum conservation is a separate principle. CC B.2.1"
     },
     {
-        id: "MC_B010", section: "B", subtopic: "B.2.1", level: "SL",
-        question: "When a swimmer pushes off a starting block, which law of motion best explains the propulsion?",
-        options: ["A. Newton's first law", "B. Newton's second law", "C. Newton's third law", "D. Law of conservation of angular momentum"],
+        id: "MC_B010", section: "B", subtopic: "B.2.2", level: "HL",
+        question: "The diagram shows a luge athlete. Which of the following would most significantly reduce the drag force acting on the athlete?",
+        image: "images/HL1AQ25.png",
+        options: ["A. Increasing the cross-sectional area", "B. Wearing a rougher surface suit", "C. Maintaining a more streamlined body position", "D. Increasing the height of the sled"],
         answer: 2,
-        explanation: "Newton's Third Law states that for every action force there is an equal and opposite reaction force. When a swimmer pushes backwards against the starting block (action force), the block exerts an equal and opposite force on the swimmer (reaction force), propelling them forward into the pool. The magnitude of the propulsive force equals the force the swimmer applies to the block. Greater leg-drive against the block produces a greater reaction force and faster start. CC B.2.1"
+        explanation: "Drag is influenced by cross-sectional area, surface roughness, and body shape (streamlining). A more streamlined body position reduces the amount of air displacement and turbulence behind the athlete (form drag), thereby reducing the total drag force. CC B.2.2"
     },
     {
-        id: "MC_B011", section: "B", subtopic: "B.2.2", level: "HL",
+        id: "MC_B011", section: "B", subtopic: "B.2.1", level: "SL",
+        question: "The diagram shows four different rugby tackle positions. Which position provides the most stability for the tackler?",
+        image: "images/HL1AQ26.png",
+        options: ["A. Position A", "B. Position B", "C. Position C", "D. Position D"],
+        answer: 2,
+        explanation: "Stability is maximized when the center of mass is low and the base of support is wide. In position C, the tackler has a low center of mass and both feet firmly planted, creating a stable base to resist the force of the opponent. CC B.2.1"
+    },
+    {
+        id: "MC_B011_MAGNUS", section: "B", subtopic: "B.2.2", level: "HL",
         question: "The Magnus effect explains why a spinning ball curves because:",
         options: ["A. Spin increases the ball's mass momentarily", "B. Differential air velocity around the ball creates a pressure difference", "C. The ball's surface heats during flight, changing air density", "D. Gravity acts unevenly on a rotating object"],
         answer: 1,

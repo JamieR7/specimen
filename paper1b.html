@@ -354,7 +354,6 @@
         <div class="header">
             <a href="index.html" class="back">← Back to Paper Selection</a>
             <h1>🧪 Paper 1B – Nature of Science</h1>
-            <p>Data Response & Nature of Science. Pulling from verified specimen papers.</p>
         </div>
 
         <div id="examContainer"></div>
@@ -434,29 +433,38 @@
             }).join('');
 
             let imageHTML = '';
-            if (currentQ.imagePlaceholder) {
-                imageHTML = `
-                <div style="background: #f0f0f0; border: 2px dashed #ccc; padding: 40px; text-align: center; margin-bottom: 25px; border-radius: 8px; color: #666; font-style: italic;">
-                    ${currentQ.imagePlaceholder}
+            if (currentQ.image) {
+                imageHTML = `<div style="text-align: center; margin-bottom: 20px;">
+                    <img src="${currentQ.image}" alt="Question Image" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                </div>`;
+            } else if (currentQ.images) {
+                imageHTML = currentQ.images.map(img => `
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <img src="${img}" alt="Question Image" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    </div>`).join('');
+            } else if (currentQ.table && currentQ.table.image) {
+                imageHTML = `<div style="text-align: center; margin-bottom: 20px;">
+                    <img src="${currentQ.table.image}" alt="Question Image" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                 </div>`;
             }
 
             container.innerHTML = `
-            <div class="card">
-                <div class="context-box">
-                    <div class="context-title">${currentQ.title}</div>
-                    <div class="context-text">${currentQ.context}</div>
-                    ${tableHTML}
-                    ${imageHTML}
+                <div class="question-header">
+                    <span class="subtopic-badge">${currentQ.subtopic} · ${currentQ.level}</span>
+                    <span class="q-counter">Question ${currentQIndex + 1} / ${saQuestions.length}</span>
                 </div>
-                ${partsHTML}
-                
+                <h2 class="question-title">${currentQ.title}</h2>
+                <div class="context-block">${currentQ.context}</div>
+                ${tableHTML}
+                ${imageHTML}
+                <div class="parts-container">
+                    ${partsHTML}
+                </div>
                 <div class="question-nav">
                     <button class="nav-btn" id="prevBtn" onclick="navigateQuestion(-1)">← Previous</button>
                     <button class="random-btn" onclick="loadRandomQuestion()">🎲 Random</button>
                     <button class="nav-btn" id="nextBtn" onclick="navigateQuestion(1)">Next →</button>
-                </div>
-            </div>`;
+                </div>`;
 
             updateNavButtons();
         }

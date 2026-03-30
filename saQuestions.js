@@ -14,23 +14,21 @@ const saQuestions = [
                 ["Usual shoes", "40 minutes 03 seconds (40.05 minutes)"],
                 ["CFP shoes", "38 minutes 59 seconds (38.98 minutes)"]
             ],
-            imagePlaceholder: "[INSERT IMAGE: Graph showing 10km run times for usual vs CFP shoes]"
+            image: "images/HL1BQ1Ci.png"
         },
         parts: [
             {
                 label: "(a)(i)",
-                question: "Calculate the percentage reduction in 10 km running time.",
+                question: "Using Table 1, identify the shoe brand that appears most frequently in the top 10 male marathon times.",
                 marks: 1,
-                answer: "(40.05 – 38.98) ÷ 40.05 × 100 = 2.67 <%>",
+                answer: "Nike ✔",
                 studentExplanation: {
                     title: "Percentage Change:",
-                    content: "Percentage change is calculated using the formula:<br><div style='text-align:center;margin:10px 0;'>Percentage change = (Original value – New value) / Original value × 100</div> Here, the original value is the usual shoe time (40.05 min) and the new value is the CFP shoe time (38.98 min). A <i>reduction</i> means the new value is smaller. The answer must be expressed as a percentage (%). Always check that you are dividing by the <b>original</b> value, not the new one. See <b>Course Companion p. 638</b> for a worked version of this question."
+                    content: "Count the occurrences of each brand in the 'Shoe' column for males. Nike is the dominant brand in the list."
                 }
             },
             {
                 label: "(a)(ii)",
-                question: "Explain why the study selected only races taking place at sea level.",
-                marks: 2,
                 answer: "✓ altitude affects performance;<br>✓ controlled variable;",
                 studentExplanation: null
             }
