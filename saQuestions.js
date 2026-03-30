@@ -13,7 +13,8 @@ const saQuestions = [
             rows: [
                 ["Usual shoes", "40 minutes 03 seconds (40.05 minutes)"],
                 ["CFP shoes", "38 minutes 59 seconds (38.98 minutes)"]
-            ]
+            ],
+            imagePlaceholder: "[INSERT IMAGE: Graph showing 10km run times for usual vs CFP shoes]"
         },
         parts: [
             {

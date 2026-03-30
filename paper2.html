@@ -176,52 +176,102 @@
             cursor: pointer;
         }
 
-        .feedback-block {
-            margin-top: 15px;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
         }
 
-        .ans-header {
-            font-weight: 700;
-            font-size: 15px;
-            margin-bottom: 8px;
-            color: #1a1a1a;
-        }
-
-        .actual-ans {
-            line-height: 1.8;
-            color: #1a1a1a;
+        .score-display {
+            font-size: 20px;
+            font-weight: bold;
             margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
         }
 
-        .explanation-block {
+        .comment-section,
+        .hint-section {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .comment-section h3,
+        .hint-section h3 {
+            font-size: 13px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .comment-section p,
+        .hint-section p {
+            margin: 0;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .mark-scheme-section {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
             background: #f8f9fa;
             border-left: 4px solid #6c757d;
-            padding: 18px;
-            border-radius: 0 8px 8px 0;
-            margin-top: 15px;
         }
 
-        .explanation-title {
-            font-weight: 700;
-            color: #333;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 10px;
-            font-size: 15px;
+        .mark-scheme-section h3 {
+            font-size: 13px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #495057;
         }
 
-        .explanation-body {
+        .mark-scheme-section p {
+            line-height: 1.8;
             font-size: 14px;
-            line-height: 1.7;
-            color: #444;
         }
 
-        .explanation-body ul {
-            margin-left: 20px;
-            margin-top: 10px;
+        .question-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: #8b0000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            opacity: 0.9;
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .random-btn {
+            padding: 10px 20px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
         }
 
         .progress-bar-container {
@@ -290,30 +340,37 @@
     </div>
 
     <script>
+        let currentQIndex = 0;
         let currentQ = p2Questions[0];
-        let answered = {};
+        let answered = {}; // partLabel -> { status, studentInput, resultHTML }
+        let questionAttempts = {}; // partLabel -> count
 
         function renderExam() {
             const container = document.getElementById('examContainer');
+            currentQ = p2Questions[currentQIndex];
 
             let partsHTML = currentQ.parts.map((p, idx) => {
                 const partId = `part_${idx}`;
-                const state = answered[p.label] || { status: 'unanswered', studentInput: '' };
+                const partKey = `${currentQ.id}_${p.label}`;
+                const state = answered[partKey] || { status: 'unanswered', studentInput: '' };
 
                 let feedbackHTML = '';
-                if (state.status === 'revealed') {
-                    const explanationHTML = p.studentExplanation ? `
-                    <div class="explanation-block">
-                        <div class="explanation-title">${p.studentExplanation.icon || '💡'} Student Explanation — ${p.studentExplanation.title}</div>
-                        <div class="explanation-body">${p.studentExplanation.content}</div>
-                    </div>` : '';
+                if (state.status === 'revealed' || state.status === 'marked') {
+                    feedbackHTML = state.resultHTML || '';
+                    if (!feedbackHTML && state.status === 'revealed') {
+                        const explanationHTML = p.studentExplanation ? `
+                        <div class="explanation-block">
+                            <div class="explanation-title">${p.studentExplanation.icon || '💡'} Student Explanation — ${p.studentExplanation.title}</div>
+                            <div class="explanation-body">${p.studentExplanation.content}</div>
+                        </div>` : '';
 
-                    feedbackHTML = `
-                    <div class="feedback-block">
-                        <div class="ans-header">Answer:</div>
-                        <div class="actual-ans">${p.answer}</div>
-                        ${explanationHTML}
-                    </div>`;
+                        feedbackHTML = `
+                        <div class="feedback-block">
+                            <div class="ans-header">Mark Scheme:</div>
+                            <div class="actual-ans">${p.answer}</div>
+                            ${explanationHTML}
+                        </div>`;
+                    }
                 }
 
                 return `
@@ -322,42 +379,170 @@
                         <span class="part-label">${p.label} ${p.question}</span>
                         <span class="marks-preview">[${p.marks} marks]</span>
                     </div>
-                    <textarea id="${partId}" ${state.status === 'revealed' ? 'disabled' : ''} placeholder="Type your answer here...">${state.studentInput}</textarea>
+                    <textarea id="${partId}" ${state.status !== 'unanswered' ? 'disabled' : ''} placeholder="Type your answer here...">${state.studentInput}</textarea>
                     
                     ${state.status === 'unanswered' ? `
                     <div class="btn-row">
-                        <button class="submit-btn" onclick="submitPart('${p.label}', ${idx})">Submit Answer</button>
-                        <button class="reveal-btn" onclick="revealPart('${p.label}', ${idx})">Show Mark Scheme</button>
-                    </div>` : ''}
+                        <button class="submit-btn" id="submit_btn_${idx}" onclick="submitPart('${p.label}', ${idx})">Submit Answer</button>
+                        <button class="reveal-btn" id="reveal_btn_${idx}" onclick="revealPart('${p.label}', ${idx})">Show Mark Scheme</button>
+                    </div>
+                    <div class="loading" id="loading_${idx}"><div class="spinner"></div>AI Marking...</div>` : ''}
                     
-                    ${feedbackHTML}
+                    <div id="result_${idx}">${feedbackHTML}</div>
                 </div>`;
             }).join('');
+
+            let imageHTML = '';
+            if (currentQ.imagePlaceholder) {
+                imageHTML = `
+                <div style="background: #fef2f2; border: 2px dashed #f87171; padding: 40px; text-align: center; margin-bottom: 25px; border-radius: 8px; color: #b91c1c; font-style: italic;">
+                    ${currentQ.imagePlaceholder}
+                </div>`;
+            }
 
             container.innerHTML = `
             <div class="card">
                 <div class="context-title">${currentQ.title}</div>
                 <div class="context-text">${currentQ.context}</div>
+                ${imageHTML}
                 ${partsHTML}
+                
+                <div class="question-nav">
+                    <button class="nav-btn" id="prevBtn" onclick="navigateQuestion(-1)">← Previous</button>
+                    <button class="random-btn" onclick="loadRandomQuestion()">🎲 Random</button>
+                    <button class="nav-btn" id="nextBtn" onclick="navigateQuestion(1)">Next →</button>
+                </div>
             </div>`;
+
+            updateNavButtons();
         }
 
-        function submitPart(label, idx) {
-            const input = document.getElementById(`part_${idx}`).value;
-            if (!input.trim()) { alert('Please type an answer first.'); return; }
-            revealPart(label, idx, input);
+        async function submitPart(label, idx) {
+            const partId = `part_${idx}`;
+            const input = document.getElementById(partId).value.trim();
+            if (!input) { alert('Please type an answer first.'); return; }
+
+            const partKey = `${currentQ.id}_${label}`;
+            if (!questionAttempts[partKey]) questionAttempts[partKey] = 0;
+            questionAttempts[partKey]++;
+
+            const loadingEl = document.getElementById(`loading_${idx}`);
+            if (loadingEl) loadingEl.style.display = 'block';
+            document.getElementById(`submit_btn_${idx}`).disabled = true;
+            document.getElementById(`reveal_btn_${idx}`).disabled = true;
+
+            const part = currentQ.parts[idx];
+
+            try {
+                const response = await fetch('https://sehsexam.thatjamiebloke.workers.dev/mark', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        questionId: partKey,
+                        question: part.question,
+                        markScheme: part.answer,
+                        maxMarks: part.marks,
+                        answer: input,
+                        attemptNumber: questionAttempts[partKey]
+                    }),
+                });
+
+                const data = await response.json();
+
+                let resultHTML = '';
+                if (data.error) {
+                    resultHTML = `<p style="color: red; margin-top: 10px;">AI Marking Error: ${data.error}</p>`;
+                } else {
+                    const percentage = Math.round((data.score / part.marks) * 100);
+                    resultHTML = `
+                        <div class="result" style="display: block;">
+                            <div class="score-display">
+                                Score: ${data.score}/${part.marks} (${percentage}%)
+                            </div>
+                            <div class="comment-section" style="background: #e8f5e9; border-left: 4px solid #10b981;">
+                                <h3>✅ Strengths</h3>
+                                <p>${data.strengths}</p>
+                            </div>
+                            <div class="comment-section" style="background: #fff3e0; border-left: 4px solid #f59e0b;">
+                                <h3>📝 Areas to Improve</h3>
+                                <p>${data.improvements}</p>
+                            </div>
+                            <div class="hint-section" style="background: #e3f2fd; border-left: 4px solid #2196F3;">
+                                <h3>💡 Study Tip</h3>
+                                <p>${data.studyTip}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                answered[partKey] = { status: 'marked', studentInput: input, resultHTML: resultHTML };
+                renderExam();
+                updateProgress();
+
+            } catch (error) {
+                console.error("AI Marking Error:", error);
+                alert("Failed to connect to AI marking service. Revealing mark scheme instead.");
+                revealPart(label, idx, input);
+            } finally {
+                const loadingEl = document.getElementById(`loading_${idx}`);
+                if (loadingEl) loadingEl.style.display = 'none';
+            }
         }
 
         function revealPart(label, idx, input = '') {
-            answered[label] = { status: 'revealed', studentInput: input };
+            const partKey = `${currentQ.id}_${label}`;
+            const studentInput = input || document.getElementById(`part_${idx}`).value;
+
+            const p = currentQ.parts[idx];
+            const explanationHTML = p.studentExplanation ? `
+                <div class="explanation-block">
+                    <div class="explanation-title">${p.studentExplanation.icon || '💡'} Student Explanation — ${p.studentExplanation.title}</div>
+                    <div class="explanation-body">${p.studentExplanation.content}</div>
+                </div>` : '';
+
+            const resultHTML = `
+                <div class="feedback-block">
+                    <div class="ans-header">Mark Scheme:</div>
+                    <div class="actual-ans">${p.answer}</div>
+                    ${explanationHTML}
+                </div>`;
+
+            answered[partKey] = { status: 'revealed', studentInput: studentInput, resultHTML: resultHTML };
             renderExam();
             updateProgress();
         }
 
+        function navigateQuestion(direction) {
+            currentQIndex += direction;
+            if (currentQIndex < 0) currentQIndex = 0;
+            if (currentQIndex >= p2Questions.length) currentQIndex = p2Questions.length - 1;
+            renderExam();
+        }
+
+        function loadRandomQuestion() {
+            currentQIndex = Math.floor(Math.random() * p2Questions.length);
+            renderExam();
+        }
+
+        function updateNavButtons() {
+            document.getElementById('prevBtn').disabled = currentQIndex === 0;
+            document.getElementById('nextBtn').disabled = currentQIndex === p2Questions.length - 1;
+        }
+
         function updateProgress() {
-            const total = currentQ.parts.length;
-            const done = Object.keys(answered).length;
-            const pct = Math.round((done / total) * 100);
+            let totalParts = 0;
+            let answeredParts = 0;
+
+            p2Questions.forEach(q => {
+                q.parts.forEach(p => {
+                    totalParts++;
+                    if (answered[`${q.id}_${p.label}`]) {
+                        answeredParts++;
+                    }
+                });
+            });
+
+            const pct = Math.round((answeredParts / totalParts) * 100);
             document.getElementById('progressFill').style.width = pct + '%';
             document.getElementById('progressText').textContent = pct + '% Complete';
         }

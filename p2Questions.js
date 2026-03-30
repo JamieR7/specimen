@@ -7,6 +7,7 @@ const p2Questions = [
         level: "HL",
         title: "Question 1 — Rowing",
         context: "Rowing is a sport that involves the use of oars to propel a boat through water. The oar acts as a lever system.",
+        imagePlaceholder: "[INSERT IMAGE: Diagram of a rowing oar acting as a lever, labeling pivot/oarlock, rower's hands, and water resistance]",
         parts: [
             {
                 label: "(a)(i)",
