@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper 1B – Short Answer | IB SEHS Specimen</title>
+    <link rel="icon" type="image/x-icon" href="../sehsexam/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Gotham', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #004587;
+            min-height: 100vh;
+            padding: 20px;
+            padding-bottom: 75px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .header .back {
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 8px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        /* Context / Data Response Styles */
+        .context-box {
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .context-title {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #004587;
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+
+        .context-text {
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            border: 2px solid #333;
+        }
+
+        .data-table th,
+        .data-table td {
+            border: 1px solid #333;
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .data-table th {
+            background: #f0f0f0;
+            font-weight: 700;
+            width: 30%;
+        }
+
+        /* Part Styles */
+        .part-container {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .part-container:last-child {
+            border-bottom: none;
+        }
+
+        .part-label {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .part-question {
+            font-size: 17px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #111;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            margin-bottom: 10px;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+
+        .score-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .marks-preview {
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .submit-btn {
+            flex: 1;
+            padding: 12px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .reveal-btn {
+            padding: 12px 20px;
+            background: #adb5bd;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* Verified feedback block */
+        .feedback-block {
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .ans-header {
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .actual-ans {
+            line-height: 1.8;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            white-space: pre-line;
+        }
+
+        /* Student Explanation block */
+        .explanation-block {
+            background: #fffbeb;
+            border-left: 4px solid #F2B406;
+            padding: 18px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 15px;
+        }
+
+        .explanation-title {
+            font-weight: 700;
+            color: #854d0e;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .explanation-title i {
+            font-style: normal;
+            font-size: 18px;
+        }
+
+        .explanation-body {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #444;
+        }
+
+        .loading {
+            text-align: center;
+            color: #10b981;
+            font-weight: 600;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #10b981;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 6px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Progress Bar */
+        .progress-bar-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .progress-wrapper {
+            flex: 1;
+            height: 12px;
+            background: #eee;
+            border-radius: 6px;
+            margin-right: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #10b981;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            font-weight: 600;
+            font-size: 14px;
+            color: #004587;
+            min-width: 120px;
+        }
+    </style>
+    <script src="saQuestions.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="back">← Back to Paper Selection</a>
+            <h1>✏️ Paper 1B – Short Answer</h1>
+            <p>Data Response & Structured Questions. Pulling from verified specimen papers.</p>
+        </div>
+
+        <div id="examContainer"></div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar-container">
+        <div class="progress-wrapper">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">0% Complete</div>
+    </div>
+
+    <script>
+        let currentQ = saQuestions[0]; // For now focus on the one we added
+        let answered = {}; // partLabel -> state
+
+        function renderExam() {
+            const container = document.getElementById('examContainer');
+
+            let tableHTML = '';
+            if (currentQ.table) {
+                let rowsHTML = currentQ.table.rows.map(r => `<tr><th>${r[0]}</th><td>${r[1]}</td></tr>`).join('');
+                tableHTML = `
+                <div class="table-container">
+                    <p style="font-weight:600;margin-bottom:8px;">${currentQ.table.title}</p>
+                    <table class="data-table">
+                        <tbody>${rowsHTML}</tbody>
+                    </table>
+                </div>`;
+            }
+
+            let partsHTML = currentQ.parts.map((p, idx) => {
+                const partId = `part_${idx}`;
+                const state = answered[p.label] || { status: 'unanswered', studentInput: '' };
+
+                let feedbackHTML = '';
+                if (state.status === 'revealed') {
+                    const explanationHTML = p.studentExplanation ? `
+                    <div class="explanation-block">
+                        <div class="explanation-title">💡 Student Explanation — ${p.studentExplanation.title}</div>
+                        <div class="explanation-body">${p.studentExplanation.content}</div>
+                    </div>` : '';
+
+                    feedbackHTML = `
+                    <div class="feedback-block">
+                        <div class="ans-header">Answer:</div>
+                        <div class="actual-ans">${p.answer}</div>
+                        ${explanationHTML}
+                    </div>`;
+                }
+
+                return `
+                <div class="part-container">
+                    <div class="score-row">
+                        <span class="part-label">${p.label} ${p.question}</span>
+                        <span class="marks-preview">[${p.marks} marks]</span>
+                    </div>
+                    <textarea id="${partId}" ${state.status === 'revealed' ? 'disabled' : ''} placeholder="Type your answer here...">${state.studentInput}</textarea>
+                    
+                    ${state.status === 'unanswered' ? `
+                    <div class="btn-row">
+                        <button class="submit-btn" onclick="submitPart('${p.label}', ${idx})">Submit Answer</button>
+                        <button class="reveal-btn" onclick="revealPart('${p.label}', ${idx})">Show Mark Scheme</button>
+                    </div>
+                    <div class="loading" id="loading_${idx}"><div class="spinner"></div>AI Marking...</div>` : ''}
+                    
+                    ${feedbackHTML}
+                </div>`;
+            }).join('');
+
+            container.innerHTML = `
+            <div class="card">
+                <div class="context-box">
+                    <div class="context-title">${currentQ.title}</div>
+                    <div class="context-text">${currentQ.context}</div>
+                    ${tableHTML}
+                </div>
+                ${partsHTML}
+            </div>`;
+        }
+
+        async function submitPart(label, idx) {
+            const input = document.getElementById(`part_${idx}`).value;
+            if (!input.trim()) { alert('Please type an answer first.'); return; }
+
+            // For now, let's just reveal the answer to match the "Verified + Explained" request
+            // but we could integrate the AI marking here if desired.
+            revealPart(label, idx, input);
+        }
+
+        function revealPart(label, idx, input = '') {
+            answered[label] = { status: 'revealed', studentInput: input };
+            renderExam();
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const total = currentQ.parts.length;
+            const done = Object.keys(answered).length;
+            const pct = Math.round((done / total) * 100);
+            document.getElementById('progressFill').style.width = pct + '%';
+            document.getElementById('progressText').textContent = pct + '% Complete';
+        }
+
+        window.onload = renderExam;
+    </script>
+</body>
+
+</html>
