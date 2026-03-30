@@ -563,7 +563,7 @@
             const pct = Math.min(100, Math.round((correctCount / total) * 100));
             document.getElementById('progressFill').style.width = pct + '%';
             document.getElementById('progressText').innerHTML =
-                `<span class="pts">${correctCount}</span> correct · ${attemptCount} attempted`;
+                `<span style="font-size: 18px; color: var(--accent); font-weight: 900;">${correctCount}</span> / ${total} Points · ${pct}%`;
         }
 
         window.addEventListener('DOMContentLoaded', () => {

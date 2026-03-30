@@ -707,7 +707,7 @@
                     `;
                 }
 
-                answered[partKey] = { status: 'marked', studentInput: input, resultHTML: resultHTML };
+                answered[partKey] = { status: 'marked', studentInput: input, resultHTML: resultHTML, score: data.score };
                 renderExam();
                 updateProgress();
 
@@ -746,7 +746,7 @@
                     ${explanationHTML}
                 </div>`;
 
-            answered[partKey] = { status: 'revealed', studentInput: studentInput, resultHTML: resultHTML };
+            answered[partKey] = { status: 'revealed', studentInput: studentInput, resultHTML: resultHTML, score: 0 };
             renderExam();
             updateProgress();
         }
@@ -772,18 +772,24 @@
             let totalParts = 0;
             let answeredParts = 0;
 
+            let totalPoints = 0;
+            let awardedPoints = 0;
+
             saQuestions.forEach(q => {
                 q.parts.forEach(p => {
                     totalParts++;
+                    totalPoints += p.marks;
                     if (answered[`${q.id}_${p.label}`]) {
                         answeredParts++;
+                        awardedPoints += (answered[`${q.id}_${p.label}`].score || 0);
                     }
                 });
             });
 
             const pct = Math.round((answeredParts / totalParts) * 100);
             document.getElementById('progressFill').style.width = pct + '%';
-            document.getElementById('progressText').textContent = pct + '% Complete';
+            document.getElementById('progressText').innerHTML =
+                `<span style="font-size: 18px; color: var(--accent); font-weight: 900;">${awardedPoints}</span> / ${totalPoints} Points · ${pct}%`;
         }
 
         window.onload = renderExam;
