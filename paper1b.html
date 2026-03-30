@@ -413,9 +413,9 @@
 
         .nav-btn {
             padding: 12px 24px;
-            background: var(--primary-light);
+            background: rgba(255, 255, 255, 0.1);
             color: white;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             font-weight: 700;
             font-size: 14px;
@@ -424,10 +424,11 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            backdrop-filter: blur(5px);
         }
 
         .nav-btn:hover:not(:disabled) {
-            background: #334155;
+            background: rgba(255, 255, 255, 0.2);
             transform: translateY(-1px);
         }
 
