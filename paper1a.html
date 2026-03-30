@@ -435,7 +435,7 @@
 
     <div class="container">
         <div class="header">
-            <a href="#" class="back"><i class="ph-bold ph-arrow-left"></i> BACK TO DASHBOARD</a>
+            <a href="https://jamier7.github.io/specimen/index.html" class="back"><i class="ph-bold ph-arrow-left"></i> BACK TO DASHBOARD</a>
             <h1><i class="ph-fill ph-circle-dashed text-amber-400"></i> Paper 1A HL – Specimen Paper</h1>
         </div>
 
@@ -744,6 +744,7 @@
 
         let userAnswers = {}; // qId -> chosenIndex
         let isReviewMode = false;
+        let hasSubmitted = false;
         const letters = ['A', 'B', 'C', 'D'];
 
         function renderAllQuestions() {
@@ -753,15 +754,24 @@
             container.innerHTML = questions.map((q, idx) => {
                 const selectedIdx = userAnswers[q.id];
                 
+                let statusEmoji = '';
+                if (hasSubmitted && selectedIdx !== undefined) {
+                    statusEmoji = (selectedIdx === q.answer) 
+                        ? '<span style="font-size: 24px; margin-left: 12px; line-height: 1;">✅</span>' 
+                        : '<span style="font-size: 24px; margin-left: 12px; line-height: 1;">❌</span>';
+                }
+
                 let optionsHTML = q.options.map((opt, i) => {
                     let cls = (selectedIdx === i) ? 'selected' : '';
                     if (isReviewMode) {
                         if (i === q.answer) cls += ' correct';
                         else if (selectedIdx === i) cls += ' wrong';
                         cls += ' disabled';
+                    } else if (hasSubmitted) {
+                        cls += ' disabled';
                     }
                     return `
-                        <button class="option-btn ${cls}" onclick="selectOption('${q.id}', ${i})" ${isReviewMode ? 'disabled' : ''}>
+                        <button class="option-btn ${cls}" onclick="selectOption('${q.id}', ${i})" ${(isReviewMode || hasSubmitted) ? 'disabled' : ''}>
                             <span class="option-letter">${letters[i]}</span>
                             <span>${opt.replace(/^[A-D]\.\s*/, '')}</span>
                         </button>
@@ -782,7 +792,10 @@
                 return `
                     <div class="question-block" id="q_${q.id}">
                         <div class="question-header">
-                            <span class="subtopic-badge">${q.subtopic} · ${q.level}</span>
+                            <div style="display: flex; align-items: center;">
+                                <span class="subtopic-badge">${q.subtopic} · ${q.level}</span>
+                                ${statusEmoji}
+                            </div>
                             <span class="q-counter">Q${idx + 1}</span>
                         </div>
                         <p class="question-text">${q.question}</p>
@@ -811,6 +824,7 @@
         }
 
         function howDidIDo() {
+            hasSubmitted = true;
             const total = mcQuestions.length;
             let correct = 0;
             
@@ -823,6 +837,8 @@
             document.getElementById('submitAllBtn').style.display = 'none';
             document.getElementById('scoreSummary').style.display = 'block';
             document.getElementById('finalScoreLabel').textContent = `Score: ${correct} / ${total} (${scorePct}%)`;
+
+            renderAllQuestions();
 
             if (scorePct === 100) {
                 showCelebration(correct, total);
