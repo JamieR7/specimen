@@ -6,8 +6,11 @@ const p2Questions = [
         subtopic: "B.1.4",
         level: "HL",
         title: "Question 1 — Rowing",
-        context: "Rowing is a sport that involves the use of oars to propel a boat through water. The oar acts as a lever system. Figure 1 shows a fact file about rowing, and Figure 2 shows the phases of the stroke from above.",
-        images: ["images/HL2Q1fig1.png", "images/HL2Q1fig2.png"],
+        context: "Rowing is a sport that involves the use of oars to propel a boat through water. The oar acts as a lever system. Figures 1-4 show data and lever analysis, and Figures 5-8 show force-time curves for different rowing techniques.",
+        images: [
+            "images/HL2Q1fig1.png", "images/HL2Q1fig2.png", "images/HL2Q1fig3.png", "images/HL2Q1fig4.png",
+            "images/HL2Q1fig5.png", "images/HL2Q1fig6.png", "images/HL2Q1fig7.png", "images/HL2Q1fig8.png"
+        ],
         parts: [
             {
                 label: "(a)(i)",
