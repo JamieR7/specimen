@@ -764,8 +764,10 @@
                 let optionsHTML = q.options.map((opt, i) => {
                     let cls = (selectedIdx === i) ? 'selected' : '';
                     if (isReviewMode) {
-                        if (i === q.answer) cls += ' correct';
-                        else if (selectedIdx === i) cls += ' wrong';
+                        if (selectedIdx !== undefined) {
+                            if (i === q.answer) cls += ' correct';
+                            else if (selectedIdx === i) cls += ' wrong';
+                        }
                         cls += ' disabled';
                     } else if (hasSubmitted) {
                         cls += ' disabled';
