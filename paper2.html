@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,6 +55,7 @@
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -144,15 +146,25 @@
         .fig-box {
             background: #ffffff;
             border: 1px solid var(--border);
-            padding: 12px;
+            padding: 16px;
             border-radius: 16px;
             margin-bottom: 24px;
             text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .fig-box img {
             max-width: 100%;
             border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .fig-caption {
+            font-size: 13px;
+            font-weight: 700;
+            color: #7f1d1d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .fig-placeholder {
@@ -257,6 +269,7 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -333,7 +346,7 @@
             align-items: center;
             gap: 6px;
         }
-        
+
         .explanation-body {
             font-size: 14px;
             line-height: 1.6;
@@ -471,6 +484,7 @@
             color: var(--accent);
             text-align: center;
         }
+
         .spinner {
             display: inline-block;
             width: 16px;
@@ -482,11 +496,15 @@
             margin-right: 8px;
             vertical-align: middle;
         }
+
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -1093,7 +1111,7 @@
                     resultHTML = `<p style="color: red; margin-top: 10px;">AI Marking Error: ${data.error}</p>`;
                 } else {
                     const percentage = Math.round((data.score / part.marks) * 100);
-                    
+
                     let explanationHTML = '';
                     if (part.studentExplanation) {
                         const exp = typeof part.studentExplanation === 'string'
@@ -1106,7 +1124,7 @@
                             <div class="explanation-body">${exp.content}</div>
                         </div>`;
                     }
-                    
+
                     resultHTML = `
                         <div class="result" style="display: block;">
                             <div class="score-display">
@@ -1216,4 +1234,5 @@
         window.onload = renderExam;
     </script>
 </body>
+
 </html>
