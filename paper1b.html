@@ -230,9 +230,22 @@
             gap: 16px;
         }
 
+        .marks-badge {
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            border: 1px solid var(--accent);
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
         .part-label-wrapper {
             display: flex;
-            gap: 10px;
+            gap: 12px;
+            align-items: flex-start;
         }
 
         .part-label {
@@ -551,11 +564,18 @@
                 if (state.status === 'revealed' || state.status === 'marked') {
                     feedbackHTML = state.resultHTML || '';
                     if (!feedbackHTML && state.status === 'revealed') {
-                        const explanationHTML = p.studentExplanation ? `
-                        <div class="explanation-block">
-                            <div class="explanation-title"><i class="ph-fill ph-lightbulb"></i> Student Explanation — ${p.studentExplanation.title}</div>
-                            <div class="explanation-body">${p.studentExplanation.content}</div>
-                        </div>` : '';
+                        let explanationHTML = '';
+                        if (p.studentExplanation) {
+                            const exp = typeof p.studentExplanation === 'string'
+                                ? { title: 'Topic Review', content: p.studentExplanation, icon: '💡' }
+                                : p.studentExplanation;
+
+                            explanationHTML = `
+                            <div class="explanation-block">
+                                <div class="explanation-title">${exp.icon || '💡'} Student Explanation — ${exp.title || 'Analysis'}</div>
+                                <div class="explanation-body">${exp.content}</div>
+                            </div>`;
+                        }
 
                         feedbackHTML = `
                         <div class="feedback-block">
@@ -573,18 +593,16 @@
                             <span class="part-label">${p.label}</span>
                             <span class="part-question">${p.question}</span>
                         </div>
-                        <span class="marks-preview">${p.marks} MARKS</span>
+                        <span class="marks-badge">[${p.marks} MARKS]</span>
                     </div>
-                    <textarea id="${partId}" ${state.status !== 'unanswered' ? 'disabled' : ''} placeholder="Ex: Direct correlation between time and shoe type...">${state.studentInput}</textarea>
+                    <textarea id="${partId}" ${state.status !== 'unanswered' ? 'disabled' : ''} placeholder="Type your answer here...">${state.studentInput}</textarea>
                     
                     ${state.status === 'unanswered' ? `
                     <div class="btn-row">
-                        <button class="submit-btn" id="submit_btn_${idx}" onclick="submitPart('${p.label}', ${idx})">
-                            <i class="ph-bold ph-paper-plane-tilt"></i> SUBMIT TO AI
-                        </button>
-                        <button class="reveal-btn" id="reveal_btn_${idx}" onclick="revealPart('${p.label}', ${idx})">SHOW SCHEME</button>
+                        <button class="submit-btn" id="submit_btn_${idx}" onclick="submitPart('${p.label}', ${idx})">Submit Answer</button>
+                        <button class="reveal-btn" id="reveal_btn_${idx}" onclick="revealPart('${p.label}', ${idx})">Show Mark Scheme</button>
                     </div>
-                    <div class="loading" id="loading_${idx}"><div class="spinner"></div>Analysing Response...</div>` : ''}
+                    <div class="loading" id="loading_${idx}"><div class="spinner"></div>AI Marking...</div>` : ''}
                     
                     <div id="result_${idx}">${feedbackHTML}</div>
                 </div>`;
@@ -610,20 +628,23 @@
             container.innerHTML = `
                 <div class="question-header">
                     <span class="subtopic-badge">${currentQ.subtopic} · ${currentQ.level}</span>
-                    <span class="q-counter">QUESTION ${currentQIndex + 1} / ${saQuestions.length}</span>
+                    <span class="q-counter">Question ${currentQIndex + 1} / ${saQuestions.length}</span>
                 </div>
-                <h2 class="question-title">${currentQ.title}</h2>
-                <div class="context-block">${currentQ.context}</div>
-                ${tableHTML}
-                ${imageHTML}
-                <div class="parts-container">
-                    ${partsHTML}
+                
+                <div class="card">
+                    <h2 class="question-title">${currentQ.title}</h2>
+                    <div class="context-block">${currentQ.context}</div>
+                    ${tableHTML}
+                    ${imageHTML}
+                    <div class="parts-container">
+                        ${partsHTML}
+                    </div>
                 </div>
                 
                 <div class="question-nav">
-                    <button class="nav-btn" id="prevBtn" onclick="navigateQuestion(-1)"><i class="ph-bold ph-caret-left"></i> PREV</button>
-                    <button class="random-btn" onclick="loadRandomQuestion()"><i class="ph-fill ph-shuffle"></i></button>
-                    <button class="nav-btn" id="nextBtn" onclick="navigateQuestion(1)">NEXT <i class="ph-bold ph-caret-right"></i></button>
+                    <button class="nav-btn" id="prevBtn" onclick="navigateQuestion(-1)">← Previous</button>
+                    <button class="random-btn" onclick="loadRandomQuestion()">🎲 Random</button>
+                    <button class="nav-btn" id="nextBtn" onclick="navigateQuestion(1)">Next →</button>
                 </div>`;
 
             updateNavButtons();
@@ -705,11 +726,18 @@
             const studentInput = input || document.getElementById(`part_${idx}`).value;
 
             const p = currentQ.parts[idx];
-            const explanationHTML = p.studentExplanation ? `
+            let explanationHTML = '';
+            if (p.studentExplanation) {
+                const exp = typeof p.studentExplanation === 'string'
+                    ? { title: 'Topic Review', content: p.studentExplanation, icon: '💡' }
+                    : p.studentExplanation;
+
+                explanationHTML = `
                 <div class="explanation-block">
-                    <div class="explanation-title">💡 Student Explanation — ${p.studentExplanation.title}</div>
-                    <div class="explanation-body">${p.studentExplanation.content}</div>
-                </div>` : '';
+                    <div class="explanation-title">${exp.icon || '💡'} Student Explanation — ${exp.title || 'Analysis'}</div>
+                    <div class="explanation-body">${exp.content}</div>
+                </div>`;
+            }
 
             const resultHTML = `
                 <div class="feedback-block">

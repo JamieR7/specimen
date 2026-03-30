@@ -85,8 +85,12 @@ const p2Questions = [
                 label: "(a)",
                 question: "Distinguish between cognitive and somatic anxiety. Give sporting examples.",
                 marks: 4,
-                answer: "Cognitive anxiety: worry/negative thoughts/loss of concentration/doubts ✔ Somatic anxiety: physiological symptoms/increased heart rate/sweating/nausea/butterflies ✔ Cognitive example: 'I'm going to fail'/fear of making mistakes ✔ Somatic example: increased HR/sweating/nausea/trembling ✔",
-                studentExplanation: "Cognitive = Head (thoughts). Somatic = Body (physical feelings). Both can hurt performance if too high."
+                answer: "✓ Cognitive anxiety: worry/negative thoughts/loss of concentration/doubts ✔<br>✓ Somatic anxiety: physiological symptoms/increased heart rate/sweating/nausea/butterflies ✔<br>✓ Cognitive example: 'I'm going to fail'/fear of making mistakes ✔<br>✓ Somatic example: increased HR/sweating/nausea/trembling ✔",
+                studentExplanation: {
+                    title: "Cognitive vs. Somatic",
+                    icon: "🧠",
+                    content: "<b>Cognitive anxiety</b> refers to the 'mental' component (worry, images of failure), while <b>somatic anxiety</b> is the 'physical' component (HR, sweating, butterflies). Most athletes experience both before a major event.<br><br>📖 <b>Course Companion, pp. 312–315 (Chapter C.1.2)</b>"
+                }
             }
         ]
     },
@@ -103,8 +107,12 @@ const p2Questions = [
                 label: "(a)",
                 question: "An athlete runs a 400 metre race in 60 seconds. Describe the re-synthesis of ATP during this race.",
                 marks: 6,
-                answer: "ATP is re-synthesized anaerobically/without presence of oxygen ✔ First few seconds ATP is re-synthesized using the CP system ✔ Creatine phosphate is broken down into Cr, P and energy ✔ ADP + P + energy = ATP OR 1 CP molecule: 1 ATP ✔ Creatine kinase is the controlling enzyme ✔ The predominant energy system is the lactic acid system/anaerobic glycolysis ✔ Glucose is broken down into pyruvate ✔ Pyruvate is converted to lactic acid ✔ By lactate dehydrogenase ✔ 1 glucose molecule: 2 ATP <net> ✔",
-                studentExplanation: "At the start, you use stored CP (lasts ~10s). Then the lactic acid system takes over for the rest of the minute. It's almost entirely anaerobic."
+                answer: "✓ ATP is re-synthesized anaerobically/without presence of oxygen ✔<br>✓ First few seconds ATP is re-synthesized using the CP system ✔<br>✓ Creatine phosphate is broken down into Cr, P and energy ✔<br>✓ ADP + P + energy = ATP OR 1 CP molecule: 1 ATP ✔<br>✓ Creatine kinase is the controlling enzyme ✔<br>✓ The predominant energy system is the lactic acid system/anaerobic glycolysis ✔<br>✓ Glucose is broken down into pyruvate ✔<br>✓ Pyruvate is converted to lactic acid ✔<br>✓ By lactate dehydrogenase ✔<br>✓ 1 glucose molecule: 2 ATP <net> ✔",
+                studentExplanation: {
+                    title: "ATP Re-synthesis",
+                    icon: "⚡",
+                    content: "In a 60-second sprint, you use <i>two</i> anaerobic systems: the <b>ATP-PC system</b> for the first ~10 seconds, then <b>Anaerobic Glycolysis (Lactic Acid System)</b> for the remainder. Both happen in the sarcoplasm without oxygen.<br><br>📖 <b>Course Companion, pp. 115–118 (Chapter A.2.3)</b>"
+                }
             }
         ]
     },
@@ -121,8 +129,12 @@ const p2Questions = [
                 label: "(a)",
                 question: "Explain the role of insulin in the formation of glycogen.",
                 marks: 3,
-                answer: "Insulin is released from pancreas «beta cells» in response to elevated <blood> glucose levels ✔ Insulin increases muscle/fat/liver cell permeability «through translocation of GLUT 4 or GLUT 1 for the liver» ✔ This stimulates glucose uptake/glycogen formation/glycogenesis in «skeletal» muscle/fat/liver «cells» ✔ Glycogen is formed linking large numbers of glucose molecules together ✔",
-                studentExplanation: "Insulin is like a key that opens the 'doors' (GLUT4) of your muscles to let sugar in and store it as glycogen for later."
+                answer: "✓ Insulin is released from pancreas <beta cells> in response to elevated blood glucose levels ✔<br>✓ Insulin increases muscle/fat/liver cell permeability «through translocation of GLUT 4» ✔<br>✓ This stimulates glycogenesis (glycogen formation) in muscle/liver cells ✔<br>✓ Glycogen is formed linking large numbers of glucose molecules together ✔",
+                studentExplanation: {
+                    title: "Insulin & Glycogenesis",
+                    icon: "💉",
+                    content: "Insulin acts like a 'key' (translocating GLUT4 to the cell membrane) that pulls glucose from the blood into cells to be stored as <b>glycogen</b>. This process of building glycogen is called <b>glycogenesis</b>.<br><br>📖 <b>Course Companion, pp. 88–90 (Chapter A.1.2)</b>"
+                }
             }
         ]
     },
@@ -139,8 +151,12 @@ const p2Questions = [
                 label: "(a)",
                 question: "Explain how Newton's second and third laws of motion would influence each of the balls.",
                 marks: 6,
-                answer: "Second law: acceleration is proportional to, and in the same direction as, the unbalanced force applied to it ✔ Ball A has a larger mass and therefore would require a greater amount of force applied to accelerate it at the same speed as ball B ✔ Third law: For every action there is an equal and opposite reaction ✔ The player applying a force to the ball has an equal and opposite force applied back to them ✔ When ball A is dribbled/bounced, it will create a larger reaction force from the floor to the ball ✔",
-                studentExplanation: "F=ma means heavy things need more force. The 3rd law means the harder you hit the ball, the harder the ball hits you back!"
+                answer: "✓ Second law: acceleration is proportional to, and in the same direction as, the unbalanced force applied to it ✔<br>✓ Ball A has a larger mass and therefore requires a greater force to accelerate at the same rate as ball B (F=ma) ✔<br>✓ Third law: For every action there is an equal and opposite reaction ✔<br>✓ The player applying a force to the ball has an equal and opposite force applied back to them ✔<br>✓ When ball A is bounced, it will create a larger reaction force from the floor to the ball ✔",
+                studentExplanation: {
+                    title: "Newton's Laws",
+                    icon: "⚖️",
+                    content: "<b>2nd Law (F=ma):</b> More mass means you need more force for the same acceleration. <br><b>3rd Law (Action/Reaction):</b> Forces always exist in pairs. The floor pushes the ball up just as hard as the ball pushes the floor down.<br><br>📖 <b>Course Companion, pp. 245–248 (Chapter B.2.1)</b>"
+                }
             }
         ]
     },
@@ -157,8 +173,12 @@ const p2Questions = [
                 label: "(a)",
                 question: "Using examples, distinguish between intrinsic and extrinsic motivation.",
                 marks: 2,
-                answer: "Intrinsic motivation from within is its own reward, connected to engaging in an activity for its inherent satisfaction, whereas extrinsic motivation serves as a means to achieving a specific goal/external stimulus ✔ Extrinsic motivation is contingent upon a reward whereas intrinsic motivation is not ✔ Intrinsic example: enjoyment / fun. Extrinsic example: money / trophies ✔",
-                studentExplanation: "Intrinsic = doing it because you love it. Extrinsic = doing it for the medal or the money."
+                answer: "✓ Intrinsic motivation: from within/fun/enjoyment vs Extrinsic: rewards/money/trophies ✔<br>✓ Intrinsic is internal satisfaction; Extrinsic is means to an external goal ✔",
+                studentExplanation: {
+                    title: "Intrinsic vs. Extrinsic",
+                    icon: "🏆",
+                    content: "<b>Intrinsic motivation</b> comes from the love of the game. <b>Extrinsic motivation</b> comes from outside factors like medals, fame, or avoiding punishment.<br><br>📖 <b>Course Companion, pp. 340–342 (Chapter C.3.2)</b>"
+                }
             }
         ]
     },
@@ -175,8 +195,12 @@ const p2Questions = [
                 label: "(a)",
                 question: "Define the term centre of mass.",
                 marks: 1,
-                answer: "The point around which the mass of a body is evenly distributed OR the point which the body is balanced in all directions ✔",
-                studentExplanation: "It's the balance point of your body. It moves when you move your limbs!"
+                answer: "✓ The point around which the mass of a body is evenly distributed OR the point at which the body is balanced in all directions ✔",
+                studentExplanation: {
+                    title: "Centre of Mass",
+                    icon: "📍",
+                    content: "The <b>Centre of Mass (CoM)</b> is the theoretical point where all the mass of an object is concentrated. In humans, it changes as we move our limbs!<br><br>📖 <b>Course Companion, pp. 280–282 (Chapter B.2.3)</b>"
+                }
             }
         ]
     },
@@ -193,8 +217,12 @@ const p2Questions = [
                 label: "(a)",
                 question: "Identify two indicators of overtraining.",
                 marks: 2,
-                answer: "Increase to resting heart rate/higher blood pressure ✔ Chronic muscle soreness/bone tenderness ✔ Reduced immune function/increased susceptibility to infections ✔ Sleep disturbance ✔ Chronic fatigue ✔ Decreased appetite / weight loss ✔ Sudden and unexplained decrease in performance / motivation ✔",
-                studentExplanation: "If you train too hard without rest, your body starts to break down. Watch for high resting HR and getting sick easily."
+                answer: "✓ Increase to resting heart rate/higher blood pressure ✔<br>✓ Chronic muscle soreness/bone tenderness ✔<br>✓ Reduced immune function/increased susceptibility to infections ✔<br>✓ Sleep disturbance/Chronic fatigue ✔",
+                studentExplanation: {
+                    title: "Overtraining Signs",
+                    icon: "🛌",
+                    content: "Overtraining is a physiological state caused by excess training without recovery. Key signs include increased resting HR and persistent fatigue.<br><br>📖 <b>Course Companion, pp. 150–152 (Chapter A.3.1)</b>"
+                }
             }
         ]
     }

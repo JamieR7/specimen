@@ -432,9 +432,7 @@
             </div>
         </div>
 
-        <div class="card" id="questionCard">
-            <div id="questionDisplay"></div>
-        </div>
+        <div id="questionDisplay"></div>
     </div>
 
     <!-- Progress Bar -->
@@ -503,40 +501,45 @@
             }).join('');
 
             let answerBlockHTML = '';
+            let explanationHTML = '';
             if (result !== undefined) {
                 const isCorrect = result.chosen === q.answer;
-                const answerLetter = letters[q.answer];
-                const answerClass = isCorrect ? 'correct-ans' : 'wrong-ans';
-                const icon = isCorrect ? '✅' : '❌';
-                answerBlockHTML = `
+                const exp = typeof q.explanation === 'string'
+                    ? { content: q.explanation, title: 'Analysis', icon: '💡' }
+                    : q.explanation;
+
+                explanationHTML = `
                 <div class="answer-block">
-                    <div class="answer-line ${answerClass}">
-                        <span>Answer: ${answerLetter} ${icon}</span>
+                    <div class="answer-line ${isCorrect ? 'correct-ans' : 'wrong-ans'}">
+                        <span>Answer: ${letters[q.answer]} ${isCorrect ? '✅' : '❌'}</span>
                     </div>
-                    <div class="explanation-label">Explanation:</div>
-                    <div class="explanation-text">${q.explanation}</div>
+                    <div class="explanation-block">
+                        <div class="explanation-title">${exp.icon || '💡'} Student Explanation — ${exp.title || 'Analysis'}</div>
+                        <div class="explanation-body">${exp.content}</div>
+                    </div>
                 </div>`;
             }
 
             let imageHTML = '';
             if (q.image) {
-                imageHTML = `<div style="text-align: center; margin-bottom: 20px;">
-                    <img src="${q.image}" alt="Question Image" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                imageHTML = `<div class="fig-box">
+                    <img src="${q.image}" alt="Question Image">
                 </div>`;
             }
 
             display.innerHTML = `
                 <div class="question-header">
                     <div>
-                        <span class="level-badge badge-${q.level}">${q.level}</span>
-                        <span class="subtopic-badge">${q.subtopic}</span>
+                        <span class="subtopic-badge">${q.subtopic} · ${q.level}</span>
                     </div>
-                    <span class="q-counter">${currentIndex + 1} / ${filtered.length}</span>
+                    <span class="q-counter">Question ${currentIndex + 1} / ${filtered.length}</span>
                 </div>
-                ${imageHTML}
-                <p class="question-text">${q.question}</p>
-                <div class="options">${optionsHTML}</div>
-                ${answerBlockHTML}
+                <div class="card">
+                    ${imageHTML}
+                    <p class="question-text">${q.question}</p>
+                    <div class="options">${optionsHTML}</div>
+                    ${explanationHTML}
+                </div>
             `;
         }
 
