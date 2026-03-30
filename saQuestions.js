@@ -21,16 +21,31 @@ const saQuestions = [
                 label: "(a)(i)",
                 question: "Using Table 1, identify the shoe brand that appears most frequently in the top 10 male marathon times.",
                 marks: 1,
-                answer: "Nike ✔",
+                answer: "✓ Nike ✔",
                 studentExplanation: {
-                    title: "Percentage Change:",
+                    title: "Brand Frequency:",
                     content: "Count the occurrences of each brand in the 'Shoe' column for males. Nike is the dominant brand in the list."
                 }
             },
             {
                 label: "(a)(ii)",
-                answer: "✓ altitude affects performance;<br>✓ controlled variable;",
-                studentExplanation: null
+                question: "Explain why the study selected only races taking place at sea level.",
+                marks: 2,
+                answer: "✓ altitude affects oxygen availability / partial pressure of O2 / performance / aerobic capacity ✔<br>✓ sea level serves as a controlled variable / ensures valid comparison ✔",
+                studentExplanation: {
+                    title: "Controlled Variables:",
+                    content: "Altitude is a major confounding factor in endurance performance. By keeping all races at sea level, the researchers ensure that differences in time are due to the shoes, not the environment."
+                }
+            },
+            {
+                label: "(a)(iii)",
+                question: "Explain two weaknesses of a study design based on one athlete.",
+                marks: 2,
+                answer: "✓ results are not generalisable to the wider population ✔<br>✓ small sample size lacks statistical power / validity ✔<br>✓ individual factors / anomalies / daily variations for that specific athlete could bias the data ✔",
+                studentExplanation: {
+                    title: "Sample Size & Validity:",
+                    content: "Case studies (n=1) are useful for depth but poor for generalisations. You can't be sure if the +4% improvement would happen for everyone or just this one person."
+                }
             }
         ]
     }
